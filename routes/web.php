@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TimeTracker\Task\CreateTaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Listado de Tareas
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('/tasks', CreateTaskController::class);
