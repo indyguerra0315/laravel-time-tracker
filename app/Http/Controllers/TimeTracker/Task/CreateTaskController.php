@@ -4,9 +4,17 @@ namespace App\Http\Controllers\TimeTracker\Task;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Src\TimeTracker\Infrastructure\CreateTaskController as InfrastructureCreateTaskController;
 
 class CreateTaskController extends Controller
 {
+    /** @var InfrastructureCreateTaskController */
+    private $infrastructureCreateTaskController;
+
+    public function __construct(InfrastructureCreateTaskController $infrastructureCreateTaskController)
+    {
+        $this->infrastructureCreateTaskController = $infrastructureCreateTaskController;
+    }
     /**
      * Handle the incoming request.
      *
@@ -15,13 +23,8 @@ class CreateTaskController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('task', [
-            'task' => [
-                'id' => $request->get('id'),
-                'name' => $request->get('name'),
-                'startTime' => $request->get('startTime')
-                ]
-            ]
-        );
+        $task = $this->infrastructureCreateTaskController->__invoke($request);
+
+        return view('task', compact('task'));
     }
 }
