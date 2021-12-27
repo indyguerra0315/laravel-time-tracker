@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace Src\TimeTracker\Infrastructure;
 
-use Illuminate\Http\Request;
-use Src\TimeTracker\Application\CreateTaskUseCase;
 use Src\TimeTracker\Infrastructure\Repositories\EloquentTaskRepository;
-use Illuminate\Support\Str;
-use Src\TimeTracker\Application\GetTaskByIdUseCase;
+use Src\TimeTracker\Application\GetAllTaskUseCase;
 
 final class GetAllTaskController
 {
@@ -19,12 +16,10 @@ final class GetAllTaskController
         $this->repository = $repository;
     }
 
-    public function __invoke(Request $request)
+    public function __invoke()
     {
-        $tasksList = [
-            ['name' => 'homepage development', 'totalTime' => '360'],
-            ['name' => 'test development', 'totalTime' => '720']
-        ];
+        $getAllTaskUseCase      = new GetAllTaskUseCase($this->repository);
+        $tasksList              = $getAllTaskUseCase->__invoke();
 
         return $tasksList;
     }

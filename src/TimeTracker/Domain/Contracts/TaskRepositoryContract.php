@@ -14,4 +14,6 @@ interface TaskRepositoryContract
     public function save(Task $task): void;
 
     public function update(TaskId $userId, Task $task): void;
+
+    public function getAll(): array;
 }

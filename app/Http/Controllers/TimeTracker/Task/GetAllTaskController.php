@@ -24,7 +24,7 @@ class GetAllTaskController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $tasksList = $this->infrastructureGetAllTaskController->__invoke($request);
+        $tasksList = $this->infrastructureGetAllTaskController->__invoke();
 
         return view('tasks-list', compact('tasksList'));
     }

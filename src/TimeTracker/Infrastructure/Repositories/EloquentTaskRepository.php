@@ -66,4 +66,12 @@ final class EloquentTaskRepository implements TaskRepositoryContract
             ->findOrFail($id->value())
             ->update($data);
     }
+
+    public function getAll(): array
+    {
+        return [
+            ['name' => 'homepage development', 'totalTime' => '360'],
+            ['name' => 'test development', 'totalTime' => '720']
+        ];
+    }
 }
