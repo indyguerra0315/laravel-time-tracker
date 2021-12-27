@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Src\TimeTracker\Infrastructure\Repositories;
 
 use App\Models\Task as ModelTask;
+use Illuminate\Support\Facades\DB;
 use Src\TimeTracker\Domain\Contracts\TaskRepositoryContract;
 use Src\TimeTracker\Domain\Task;
+use Src\TimeTracker\Domain\TaskSummary;
 use Src\TimeTracker\Domain\ValueObjects\TaskId;
 use Src\TimeTracker\Domain\ValueObjects\TaskIsOpen;
 use Src\TimeTracker\Domain\ValueObjects\TaskName;
@@ -69,9 +71,18 @@ final class EloquentTaskRepository implements TaskRepositoryContract
 
     public function getAll(): array
     {
-        return [
-            ['name' => 'homepage development', 'totalTime' => '360'],
-            ['name' => 'test development', 'totalTime' => '720']
-        ];
+        $query = $this->eloquentTaskModel::query()
+            ->groupBy('name')
+            ->select('name', DB::raw("SUM(totalTime) as totalTime"))
+            ->get();
+
+        $tasksList = $query->map(function ($task) {
+            return new TaskSummary(
+                new TaskName($task->name),
+                new TaskTotalTime((int)$task->totalTime)
+            );
+        });
+
+        return $tasksList->toArray();
     }
 }

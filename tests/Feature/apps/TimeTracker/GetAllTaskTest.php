@@ -19,6 +19,6 @@ class GetAllTaskTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('Listado de tareas');
-        $response->assertSee('test development');
+        $response->assertSee('homepage development');
     }
 }

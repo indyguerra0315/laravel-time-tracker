@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\TimeTracker\Task;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TaskSummaryCollection;
+use App\Http\Resources\TaskSummaryResource;
 use Illuminate\Http\Request;
 use Src\TimeTracker\Infrastructure\GetAllTaskController as InfrastructureGetAllTaskController;
 
@@ -24,7 +26,7 @@ class GetAllTaskController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $tasksList = $this->infrastructureGetAllTaskController->__invoke();
+        $tasksList = (new TaskSummaryCollection($this->infrastructureGetAllTaskController->__invoke()))->resolve();
 
         return view('tasks-list', compact('tasksList'));
     }
