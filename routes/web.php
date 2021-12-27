@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\TimeTracker\Task\CreateTaskController;
+use App\Http\Controllers\TimeTracker\Task\GetAllTaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +21,4 @@ Route::get('/', function () {
 });
 
 Route::post('/tasks', CreateTaskController::class);
+Route::get('/tasks-list', GetAllTaskController::class);
