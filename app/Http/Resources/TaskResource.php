@@ -16,6 +16,7 @@ class TaskResource extends JsonResource
     {
         // Map Domain Task model values
         return [
+            'id' => $this->id()->value(),
             'name' => $this->name()->value(),
             'startTime' => $this->startTime()->value()
         ];
