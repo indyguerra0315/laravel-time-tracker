@@ -16,14 +16,12 @@ class CreateTaskTest extends TestCase
     public function test_create_task_web()
     {
         $response = $this->post('/tasks', [
-            'id' => 'qwerty',
             'name' => 'homepage development',
             'startTime' => '2021-12-26 21:25:00'
         ]);
 
         $response->assertStatus(200);
 
-        $response->assertSee('qwerty');
         $response->assertSee('homepage development');
         $response->assertSee('2021-12-26 21:25:00');
     }
