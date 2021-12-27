@@ -6,6 +6,6 @@ namespace Src\TimeTracker\Domain\ValueObjects;
 
 use Src\Shared\Domain\ValueObjects\StringValueObject;
 
-final class TaskStartTime extends StringValueObject
+final class TaskEndTime extends StringValueObject
 {
 }

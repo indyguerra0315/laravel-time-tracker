@@ -33,8 +33,8 @@ final class EloquentTaskRepository implements TaskRepositoryContract
             new TaskId($task->id),
             new TaskName($task->name),
             new TaskStartTime($task->startTime),
-            new TaskTotalTime($task->totalTime),
-            new TaskIsOpen((bool)$task->isOpen)
+            new TaskIsOpen((bool)$task->isOpen),
+            new TaskTotalTime($task->totalTime)
         );
 
         return $taskEntity;

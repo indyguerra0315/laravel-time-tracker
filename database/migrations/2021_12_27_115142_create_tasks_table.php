@@ -17,7 +17,8 @@ class CreateTasksTable extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->dateTime('startTime');
-            $table->integer('totalTime');
+            $table->dateTime('endTime')->nullable();
+            $table->integer('totalTime')->nullable();
             $table->boolean('isOpen');
             $table->timestamps();
         });

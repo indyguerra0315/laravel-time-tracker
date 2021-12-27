@@ -30,10 +30,10 @@ final class CreateTaskUseCase
         $id         = new TaskId($id);
         $name       = new TaskName($name);
         $startTime  = new TaskStartTime($startTime);
-        $totalTime  = new TaskTotalTime(0);
         $isOpen     = new TaskIsOpen(true);
+        $totalTime  = new TaskTotalTime(0);
 
-        $task = Task::create($id, $name, $startTime, $totalTime, $isOpen);
+        $task = Task::create($id, $name, $startTime, $isOpen, $totalTime);
 
         $this->repository->save($task);
     }

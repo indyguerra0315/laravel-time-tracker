@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Src\TimeTracker\Domain;
 
+use Src\TimeTracker\Domain\ValueObjects\TaskEndTime;
 use Src\TimeTracker\Domain\ValueObjects\TaskId;
 use Src\TimeTracker\Domain\ValueObjects\TaskIsOpen;
 use Src\TimeTracker\Domain\ValueObjects\TaskName;
@@ -22,15 +23,17 @@ final class Task
         TaskId $id,
         TaskName $name,
         TaskStartTime $startTime,
-        TaskTotalTime $totalTime,
-        TaskIsOpen $isOpen
+        TaskIsOpen $isOpen,
+        TaskTotalTime $totalTime = null,
+        TaskEndTime $endTime = null
     )
     {
-        $this->id        = $id;
-        $this->name      = $name;
-        $this->startTime = $startTime;
-        $this->totalTime = $totalTime;
-        $this->isOpen    = $isOpen;
+        $this->id           = $id;
+        $this->name         = $name;
+        $this->startTime    = $startTime;
+        $this->endTime      = $endTime;
+        $this->totalTime    = $totalTime;
+        $this->isOpen       = $isOpen;
     }
 
     public function id(): TaskId
@@ -48,6 +51,11 @@ final class Task
         return $this->startTime;
     }
 
+    public function endTime(): TaskEndTime
+    {
+        return $this->endTime;
+    }
+
     public function totalTime(): TaskTotalTime
     {
         return $this->totalTime;
@@ -62,11 +70,12 @@ final class Task
         TaskId $id,
         TaskName $name,
         TaskStartTime $startTime,
-        TaskTotalTime $totalTime,
-        TaskIsOpen $isOpen
+        TaskIsOpen $isOpen,
+        TaskTotalTime $totalTime = null,
+        TaskEndTime $endTime = null
     ): Task
     {
-        $task = new self($id, $name, $startTime, $totalTime, $isOpen);
+        $task = new self($id, $name, $startTime, $isOpen, $totalTime, $endTime);
 
         return $task;
     }
