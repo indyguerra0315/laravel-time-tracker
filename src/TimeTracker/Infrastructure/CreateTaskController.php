@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Src\TimeTracker\Application\CreateTaskUseCase;
 use Src\TimeTracker\Infrastructure\Repositories\EloquentTaskRepository;
 use Illuminate\Support\Str;
-use Src\TimeTracker\Domain\ValueObjects\TaskId;
+use Src\TimeTracker\Application\GetTaskByIdUseCase;
 
 final class CreateTaskController
 {
@@ -25,18 +25,16 @@ final class CreateTaskController
         $taskName              = $request->input('name');
         $taskStartTime         = $request->input('startTime');
 
-        $createUserUseCase = new CreateTaskUseCase($this->repository);
-        $createUserUseCase->__invoke(
+        $createTaskUseCase = new CreateTaskUseCase($this->repository);
+        $createTaskUseCase->__invoke(
             $taskId,
             $taskName,
             $taskStartTime
         );
 
-        $task = $this->repository->find(new TaskId($taskId));
+        $getTaskByIdUseCase     = new GetTaskByIdUseCase($this->repository);
+        $newTask                = $getTaskByIdUseCase->__invoke($taskId);
 
-        // $getUserByCriteriaUseCase = new GetTaskByCriteriaUseCase($this->repository);
-        // $newUser                  = $getUserByCriteriaUseCase->__invoke($userName, $userEmail);
-
-        return $task;
+        return $newTask;
     }
 }
