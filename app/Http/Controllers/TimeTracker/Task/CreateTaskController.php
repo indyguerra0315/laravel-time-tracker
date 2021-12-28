@@ -26,6 +26,6 @@ class CreateTaskController extends Controller
     {
         $task = (new TaskResource($this->infrastructureCreateTaskController->__invoke($request)))->resolve();
 
-        return view('task', compact('task'));
+        return redirect('/tasks/'. $task['id']);
     }
 }

@@ -20,7 +20,7 @@
             }
         </style>
 
-        <script src="js/app.js" defer></script>
+        <script src="/js/app.js" defer></script>
     </head>
     <body class="antialiased">
         <h1>Time Tracker</h1>

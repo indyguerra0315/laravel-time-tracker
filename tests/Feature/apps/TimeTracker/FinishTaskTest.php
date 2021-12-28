@@ -15,11 +15,11 @@ class FinishTaskTest extends TestCase
      */
     public function test_finish_task()
     {
-        $response = $this->post('/tasks/2b6f4660-b71c-4abe-bae9-2bfe365a526c', ['endTime' => '2021-12-27 20:51:00']);
+        $response = $this->post('/tasks/0e74de42-c49b-46bf-2220-782a7aec55d8', ['endTime' => '2021-12-30 20:51:00']);
 
         $response->assertStatus(302);
         $redirectResponse = $this->followRedirects($response);
         $redirectResponse->assertSee('Listado de tareas');
-        $redirectResponse->assertSee('homepage development');
+        $redirectResponse->assertSee('test');
     }
 }

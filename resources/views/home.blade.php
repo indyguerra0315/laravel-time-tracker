@@ -18,6 +18,7 @@
             event.preventDefault();
             let date = window.getStringDateNow();
 
+            // Add startTime data to form
             inputStartTime = document.createElement("input");
             inputStartTime.setAttribute('type', "hidden");
             inputStartTime.setAttribute('name', 'startTime');
