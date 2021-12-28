@@ -17,7 +17,7 @@ class TaskSummaryResource extends JsonResource
         // Map Domain TaskSummary model values
         return [
             'name' => $this->name()->value(),
-            'totalTime' => gmdate("H:i:s", $this->totalTime()->value())
+            'totalTime' => gmdate("z\d H\h i\m s\s", $this->totalTime()->value())
         ];
     }
 }

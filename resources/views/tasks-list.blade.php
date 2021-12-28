@@ -5,6 +5,9 @@
 
 <div class="mt-3">
     <h2>Tasks list</h2>
+    <div class="mt-3">
+        <label>Today total time: {{ gmdate("H\h i\m s\s", $totalTimeToday) }}</label>
+    </div>
 
     <div class="task-items">
         <div class="header task-item">

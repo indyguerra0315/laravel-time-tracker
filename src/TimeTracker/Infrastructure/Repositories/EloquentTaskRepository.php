@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Src\TimeTracker\Infrastructure\Repositories;
 
 use App\Models\Task as ModelTask;
+use DateTime;
 use Illuminate\Support\Facades\DB;
 use Src\TimeTracker\Domain\Contracts\TaskRepositoryContract;
 use Src\TimeTracker\Domain\Task;
@@ -116,5 +117,18 @@ final class EloquentTaskRepository implements TaskRepositoryContract
         });
 
         return $tasksList->toArray();
+    }
+
+    public function totalTimeByDay(DateTime $day): int
+    {
+        $date = $day->format('Y-m-d');
+
+        $res = $this->eloquentTaskModel
+            ->where(DB::raw('DATE(startTime)'), DB::raw("DATE('$date')"))
+            ->where('isOpen', 0)
+            ->select(DB::raw('SUM(totalTime) as totalTime'))
+            ->first();
+
+        return (int) $res->totalTime;
     }
 }
