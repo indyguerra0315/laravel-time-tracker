@@ -47,6 +47,28 @@ final class EloquentTaskRepository implements TaskRepositoryContract
         return $taskEntity;
     }
 
+    public function findByCriteria(TaskIsOpen $isOpen): ?Task
+    {
+        $task = $this->eloquentTaskModel
+            ->where('isOpen', $isOpen->value())
+            ->firstOrFail();
+
+        $endTime = null;
+        if (!empty($task->endTime)) {
+            $endTime = new TaskEndTime($task->endTime);
+        }
+
+        // Return Domain Task model
+        return new Task(
+            new TaskId($task->id),
+            new TaskName($task->name),
+            new TaskStartTime($task->startTime),
+            new TaskIsOpen((bool)$task->isOpen),
+            new TaskTotalTime($task->totalTime),
+            $endTime,
+        );
+    }
+
     public function save(Task $task): void
     {
         $newTask = $this->eloquentTaskModel;

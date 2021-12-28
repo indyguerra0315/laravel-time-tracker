@@ -43,6 +43,13 @@ class DateTimeValueObject
         return $this->value() === $other->value();
     }
 
+    /**
+     * Calculate diff between dates in seconds
+     *
+     * @param DateTimeValueObject $other
+     *
+     * @return int
+     */
     public function diff(DateTimeValueObject $other): int
     {
         $dteStart = new DateTime($this->value());

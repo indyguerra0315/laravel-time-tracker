@@ -29,7 +29,7 @@ final class FinishTaskUseCase
     {
         // Prepare data
         $id         = new TaskId($id);
-        $endTime  = new TaskEndTime($endTime);
+        $endTime    = new TaskEndTime($endTime);
         $isOpen     = new TaskIsOpen(false);
 
         // Get Current task stored data

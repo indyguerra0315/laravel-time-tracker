@@ -6,10 +6,13 @@ namespace Src\TimeTracker\Domain\Contracts;
 
 use Src\TimeTracker\Domain\Task;
 use Src\TimeTracker\Domain\ValueObjects\TaskId;
+use Src\TimeTracker\Domain\ValueObjects\TaskIsOpen;
 
 interface TaskRepositoryContract
 {
     public function find(TaskId $id): ?Task;
+
+    public function findByCriteria(TaskIsOpen $isOpen): ?Task;
 
     public function save(Task $task): void;
 
