@@ -21,7 +21,7 @@ final class CreateTaskController
 
     public function __invoke(Request $request)
     {
-        $taskId                = Str::uuid()->toString();
+        $taskId                = $request->input('id');
         $taskName              = $request->input('name');
         $taskStartTime         = $request->input('startTime');
 

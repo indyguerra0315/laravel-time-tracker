@@ -1,3 +1,6 @@
+@extends('base')
+
+@section('content')
 <h2>Listado de tareas</h2>
 
 <ul>
@@ -8,3 +11,6 @@
     </li>
     @endforeach
 </ul>
+
+<a href="/">Go Home</a>
+@endsection

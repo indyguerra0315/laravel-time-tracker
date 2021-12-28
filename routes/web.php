@@ -3,6 +3,7 @@
 use App\Http\Controllers\TimeTracker\Task\CreateTaskController;
 use App\Http\Controllers\TimeTracker\Task\FinishTaskController;
 use App\Http\Controllers\TimeTracker\Task\GetAllTaskController;
+use App\Http\Controllers\TimeTracker\Task\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Listado de Tareas
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', HomeController::class);
 Route::post('/tasks', CreateTaskController::class);
 Route::post('/tasks/{id}', FinishTaskController::class);
 Route::get('/tasks-list', GetAllTaskController::class);

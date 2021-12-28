@@ -1,4 +1,9 @@
+@extends('base')
+
+@section('content')
+
 <form id="update-task" action="/tasks/{{$task['id']}}" method="POST">
+    @csrf
     <label>{{$task['name']}}</label>
     <label>{{$task['startTime']}}</label>
 
@@ -9,21 +14,9 @@
     (function () {
         const form = document.getElementById('update-task');
 
-        const getStringDateNow = function () {
-            let date = new Date();
-            let day = date.getDate();
-            let month = date.getMonth() + 1;
-            let year = date.getFullYear();
-            let hour = date.getHours();
-            let minute = date.getHours();
-            let seconds = date.getSeconds();
-
-            return `${year}-${month}-${day} ${hour}:${minute}:${seconds}`;
-        };
-
         submitForm = function (event) {
             event.preventDefault();
-            let date = getStringDateNow();
+            let date = window.getStringDateNow();
 
             input = document.createElement("input");
             input.setAttribute('type', "hidden");
@@ -37,3 +30,5 @@
         form.addEventListener('submit', submitForm);
     })();
 </script>
+
+@endsection
