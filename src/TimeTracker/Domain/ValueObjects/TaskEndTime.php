@@ -4,8 +4,8 @@ declare(strict_types = 1);
 
 namespace Src\TimeTracker\Domain\ValueObjects;
 
-use Src\Shared\Domain\ValueObjects\StringValueObject;
+use Src\Shared\Domain\ValueObjects\DateTimeValueObject;
 
-final class TaskEndTime extends StringValueObject
+final class TaskEndTime extends DateTimeValueObject
 {
 }

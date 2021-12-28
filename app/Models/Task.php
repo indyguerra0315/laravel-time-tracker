@@ -15,6 +15,7 @@ class Task extends Model
         'id',
         'name',
         'startTime',
+        'endTime',
         'totalTime',
         'isOpen',
     ];

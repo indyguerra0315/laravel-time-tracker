@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Src\TimeTracker\Domain\Contracts\TaskRepositoryContract;
 use Src\TimeTracker\Domain\Task;
 use Src\TimeTracker\Domain\TaskSummary;
+use Src\TimeTracker\Domain\ValueObjects\TaskEndTime;
 use Src\TimeTracker\Domain\ValueObjects\TaskId;
 use Src\TimeTracker\Domain\ValueObjects\TaskIsOpen;
 use Src\TimeTracker\Domain\ValueObjects\TaskName;
@@ -28,13 +29,19 @@ final class EloquentTaskRepository implements TaskRepositoryContract
     {
         $task = $this->eloquentTaskModel->findOrFail($id->value());
 
+        $endTime = null;
+        if (!empty($task->endTime)) {
+            $endTime = new TaskEndTime($task->endTime);
+        }
+
         // Return Domain Task model
         $taskEntity = new Task(
             new TaskId($task->id),
             new TaskName($task->name),
             new TaskStartTime($task->startTime),
             new TaskIsOpen((bool)$task->isOpen),
-            new TaskTotalTime($task->totalTime)
+            new TaskTotalTime($task->totalTime),
+            $endTime,
         );
 
         return $taskEntity;
@@ -60,8 +67,11 @@ final class EloquentTaskRepository implements TaskRepositoryContract
         $taskToUpdate = $this->eloquentTaskModel;
 
         $data = [
-            'totalTime'     => $task->totalTime()->value(),
-            'isOpen'        => $task->isOpen()->value()
+            'name'      => $task->name()->value(),
+            'startTime' => $task->startTime()->value(),
+            'endTime'   => $task->endTime()->value(),
+            'totalTime' => $task->totalTime()->value(),
+            'isOpen'    => $task->isOpen()->value()
         ];
 
         $taskToUpdate
