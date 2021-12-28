@@ -1,16 +1,22 @@
 @extends('base')
 
 @section('content')
-<h2>Listado de tareas</h2>
-
-<ul>
-    @foreach ($tasksList as $task)
-    <li>
-        <span>{{ $task['name'] }}</span>
-        <span>{{ $task['totalTime'] }}</span>
-    </li>
-    @endforeach
-</ul>
-
 <a href="/">Go Home</a>
+
+<div class="mt-3">
+    <h2>Tasks list</h2>
+
+    <div class="task-items">
+        <div class="header task-item">
+            <label>Name</label>
+            <label>Time</label>
+        </div>
+        @foreach ($tasksList as $task)
+        <div class="task-item">
+            <label>{{ $task['name'] }}</label>
+            <label>{{ $task['totalTime'] }}</label>
+        </div>
+        @endforeach
+    </div>
+</div>
 @endsection

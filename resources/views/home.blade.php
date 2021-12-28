@@ -1,14 +1,16 @@
 @extends('base')
 
 @section('content')
+<a href="/tasks-list">Time Tracker Summary</a>
+
 <form id="create-task" action="/tasks" method="POST">
     @csrf
-    <label>Start Task</label><input name="name">
-
-    <button type="submit">Start</button>
+    <div class="form-controls">
+        <label>New Task</label>
+        <input name="name"> <button class="btn" type="submit">Start</button>
+    </div>
 </form>
 
-<a href="/tasks-list">Time Tracker Summary</a>
 
 <script>
     (function () {

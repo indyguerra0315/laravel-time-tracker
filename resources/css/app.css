@@ -1,0 +1,128 @@
+/*
+COLOR PALETTE
+https://coolors.co/f7fff7-343434-2f3061-ffe66d-a1c6d7
+#F7FFF7 - almost white
+#343434 - dark gray - almost black
+#2F3061 - blue dark
+#FFE66D - yellow
+#A1C6D7 - blue light
+*/
+
+/* Global styles
+------------------------------------*/
+html {
+    /*  */
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body {
+    color: #343434;
+    margin: 0;
+    padding: 0;
+    font-family: "Open Sans", sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+img {
+    width: 300px;
+}
+
+a {
+    font-weight: 400;
+    color: #A1C6D7;
+    line-height: 3;
+}
+
+a:hover {
+    text-decoration: none;
+    text-decoration: underline;
+}
+
+h1, h2 {
+    font-weight: 600;
+    margin: 0;
+}
+
+h1 {
+    font-size: 40px;
+    line-height: 2;
+}
+
+h2 {
+    font-size: 20px;
+}
+input {
+    border: 1px solid #FFE66D;
+    border-radius: 4px;
+    height: 32px;
+}
+.content-wrap {
+    max-width: 800px;
+    width: 85%;
+    margin: 0 auto;
+    padding: 60px 0;
+}
+.mt-3 {
+    margin-top: 25px;
+}
+.title {
+    text-align: center;
+}
+.counter {
+    color: #F7FFF7;
+    background-color: #A1C6D7;
+    border-radius: 4px;
+    padding: 6px 8px;
+}
+.form-controls label.counter {
+    margin: 0;
+}
+
+/* btn
+------------------*/
+.btn {
+    background: #2F3061;
+    color: #F7FFF7;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
+.btn:hover {
+    background: rgba(47,48,97,80%);
+}
+
+/* form
+----------------- */
+.form-controls {
+    margin-top: 12px;
+}
+.form-controls label {
+    margin-right: 10px;
+}
+.form-controls input {
+    margin-right: 10px;
+}
+
+/* task-items
+--------------*/
+.header.task-item label {
+    font-weight: 600;
+}
+.task-item {
+    padding: 7px;
+    border-bottom: 1px solid #2F3061;
+}
+.task-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    column-gap: 20px;
+}
