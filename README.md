@@ -1,66 +1,93 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Time Tracker
+### Author: Ing. Indira Guerra Rodriguez
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Build
+- Run `cp .env.example .env` to create app environment file.
+- Run `./vendor/bin/sail up -d` to up the docker containers.
+- Run `./vendor/bin/sail bash` to access the console.
+- Run `composer install` command to install php dependencies.
+- Run `php artisan migrate` to generate tables.
+- Run `npm install`.
+- Run `npm run prod` to compilate js and css resources.
 
-## About Laravel
+## Running unit tests
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Run `php artisan test` from sail bash or `./vendor/bin/sail test` to execute the unit tests via [PHPUnit](https://phpunit.de/).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+# The task is to make a simple time tracker. The user should be able to:
+- Type the name of the task he is working on and click “start”.
+- See the timer that is counting how long the task is already taking.
+- Click Stop to stop working on that task (the timer stops).
+- Type another name for a diﬀerent task and click “start” again. The page should start
+counting from the beginning.
+- On the same page (or other, up to you) user should be able to see the summary of the
+time tracker where it displays
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Requirements:
+- The tasks can be recognized by name, so if I type “homepage development” twice
+during one day, spend 2h in the morning and 0.5h in the afternoon, then at the end of
+the day I should see 2.5h near “homepage development”.
 
-## Learning Laravel
+### One step further:
+Write a PHP script that:
+- Receives by parameter the action (start / end) and the name of the task.
+- And other that have to returns a list of all the tasks with their status, start time, end time and total elapsed
+time.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+# SOLUTION
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## For the solution:
+- I implemented the solution with the Laravel framework on Docker managed with Sail.
+- Hexagonal architecture concepts as well as DDD were applied.
+- Design patterns and SOLID principles were applied.
+- Integration tests were performed: `CreateTaskTest`, `FinishTaskTest`, `GitAllTaskTest`.
+## Main Folders structure
 
-## Laravel Sponsors
+Framework folder structure:
+- `app/Console/Commands`: Definition of the application commands that can be executed on the console.
+- `app/Http/Controllers/TimeTracker/Task`: Framework controllers.
+- `app/Http/Resources`: Files for transformation between models and responses to application users.
+- `app/Models`: Framework models.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+In addition, we are going to find the following folder structure based on the hexagonal architecture:
+- `src/Shared`: Files that will be common for all bounded context.
+- `src/TimeTracker`: Files that handle all of the business logic of the TimeTracker bounded context `html`, `css`, `js` and `views`.
 
-### Premium Partners
+```
+app
+├── Console
+│       └── Commands
+│
+├── Http
+│   ├── Controllers
+│   │   └── TimeTracker
+│   │       └── Task
+│   │
+│   └── Resources
+│
+├── Models
+│
+src
+├── Shared
+│   └── Domain
+│       ├── Aggregate
+│       └── ValueObjects
+│
+├── TimeTracker
+│   ├── Aplication
+|   │
+│   ├── Domain
+│   │   ├── Contracts
+│   │   └── ValueObjects
+│   │
+│   └── Infrastructure
+│       └── Repositories
+resources
+├── css
+├── js
+└── views
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-- **[Romega Software](https://romegasoftware.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### TODO list
+- Implement more unit and integration tests and improve the ones that were implemented.
+- Improve user interface.
