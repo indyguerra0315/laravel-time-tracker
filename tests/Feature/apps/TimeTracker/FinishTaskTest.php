@@ -19,7 +19,7 @@ class FinishTaskTest extends TestCase
 
         $response->assertStatus(302);
         $redirectResponse = $this->followRedirects($response);
-        $redirectResponse->assertSee('Listado de tareas');
+        $redirectResponse->assertSee('Tasks list');
         $redirectResponse->assertSee('test');
     }
 }

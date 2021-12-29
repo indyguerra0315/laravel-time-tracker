@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\apps\TimeTracker;
 
+use DateTime;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -15,15 +16,18 @@ class CreateTaskTest extends TestCase
      */
     public function test_create_task_web()
     {
+        $now = (new DateTime())->format('Y-m-d H:i:s');
         $response = $this->post('/tasks', [
-            'id' => '279185c3-3ee0-4f35-9a54-fe5604ac9cb6',
+            'id' => \Str::uuid()->toString(),
             'name' => 'homepage development',
-            'startTime' => '2021-12-26 21:25:00'
+            'startTime' => $now
         ]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(302);
 
-        $response->assertSee('homepage development');
-        $response->assertSee('2021-12-26 21:25:00');
+        $redirect = $this->followRedirects($response);
+
+        $redirect->assertSee('homepage development');
+        $redirect->assertSee($now);
     }
 }
