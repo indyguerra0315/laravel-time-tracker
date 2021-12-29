@@ -14,7 +14,7 @@ class TasksCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'task {action} {name}';
+    protected $signature = 'task {action : start|end} {name : Task name}';
 
     /**
      * The console command description.
