@@ -15,10 +15,17 @@ class TaskResource extends JsonResource
     public function toArray($request)
     {
         // Map Domain Task model values
-        return [
+        $data = [
             'id' => $this->id()->value(),
             'name' => $this->name()->value(),
-            'startTime' => $this->startTime()->value()
+            'startTime' => $this->startTime()->value(),
+            'isOpen' => $this->isOpen()->value()
         ];
+
+        if (!$this->isOpen()->value()) {
+            $data['endTime'] = $this->endTime()->value();
+        }
+
+        return $data;
     }
 }
