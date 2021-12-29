@@ -48,10 +48,10 @@ final class EloquentTaskRepository implements TaskRepositoryContract
         return $taskEntity;
     }
 
-    public function findByCriteria(TaskIsOpen $isOpen): ?Task
+    public function findByCriteria(string $column, $valueObject): ?Task
     {
         $task = $this->eloquentTaskModel
-            ->where('isOpen', $isOpen->value())
+            ->where($column, $valueObject->value())
             ->firstOrFail();
 
         $endTime = null;

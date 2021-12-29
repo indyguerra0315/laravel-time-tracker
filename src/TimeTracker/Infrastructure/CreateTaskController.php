@@ -19,11 +19,11 @@ final class CreateTaskController
         $this->repository = $repository;
     }
 
-    public function __invoke(Request $request)
+    public function __invoke(array $data)
     {
-        $taskId                = $request->input('id');
-        $taskName              = $request->input('name');
-        $taskStartTime         = $request->input('startTime');
+        $taskId                = $data['id'];
+        $taskName              = $data['name'];
+        $taskStartTime         = $data['startTime'];
 
         $createTaskUseCase = new CreateTaskUseCase($this->repository);
         $createTaskUseCase->__invoke(

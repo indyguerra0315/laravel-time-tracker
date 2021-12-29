@@ -24,7 +24,10 @@ class FinishTaskController extends Controller
      */
     public function __invoke($id, Request $request)
     {
-        $this->infrastructureFinishTaskController->__invoke($id, $request);
+        $data = $request->only(['endTime']);
+        $data['id'] = $id;
+
+        $this->infrastructureFinishTaskController->__invoke($data);
 
         return redirect('/tasks-list');
     }

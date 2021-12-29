@@ -23,33 +23,54 @@ final class FinishTaskUseCase
     }
 
     public function __invoke(
-        string $id,
-        string $endTime
+        string $endTime,
+        string $id = null,
+        string $name = null,
     ): void
     {
         // Prepare data
-        $id         = new TaskId($id);
         $endTime    = new TaskEndTime($endTime);
-        $isOpen     = new TaskIsOpen(false);
 
-        // Get Current task stored data
-        $oldTask = $this->repository->find($id);
+        if (!empty($id)) {
+            $id         = new TaskId($id);
 
-        // Calculate time spent on task
-        $diff = $endTime->diff($oldTask->startTime());
-        $totalTime = new TaskTotalTime($diff);
+            // Get Current task stored data
+            $oldTask = $this->repository->find($id);
 
-        // Create task with updated data
-        $updatedTask = Task::create(
-            $id,
-            $oldTask->name(),
-            $oldTask->startTime(),
-            $isOpen,
-            $totalTime,
-            $endTime
-        );
+            $this->stopTask($oldTask, $endTime);
+        }
 
-        // Persist data
-        $this->repository->update($id, $updatedTask);
+        if(!empty($name)) {
+            $name       = new TaskName($name);
+
+            // Get Current task stored data
+            $oldTask = $this->repository->findByCriteria('name', $name);
+
+            $this->stopTask($oldTask, $endTime);
+        }
+    }
+
+    private function stopTask(Task $oldTask, TaskEndTime $endTime)
+    {
+        if ($oldTask->isOpen()->value()) {
+            $isOpen     = new TaskIsOpen(false);
+
+            // Calculate time spent on task
+            $diff = $endTime->diff($oldTask->startTime());
+            $totalTime = new TaskTotalTime($diff);
+
+            // Create task with updated data
+            $updatedTask = Task::create(
+                $oldTask->id(),
+                $oldTask->name(),
+                $oldTask->startTime(),
+                $isOpen,
+                $totalTime,
+                $endTime
+            );
+
+            // Persist data
+            $this->repository->update($oldTask->id(), $updatedTask);
+        }
     }
 }

@@ -13,7 +13,7 @@ interface TaskRepositoryContract
 {
     public function find(TaskId $id): ?Task;
 
-    public function findByCriteria(TaskIsOpen $isOpen): ?Task;
+    public function findByCriteria(string $column, $valueObject): ?Task;
 
     public function save(Task $task): void;
 

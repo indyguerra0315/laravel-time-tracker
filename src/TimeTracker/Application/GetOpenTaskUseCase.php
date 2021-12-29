@@ -6,7 +6,6 @@ namespace Src\TimeTracker\Application;
 
 use Src\TimeTracker\Domain\Contracts\TaskRepositoryContract;
 use Src\TimeTracker\Domain\Task;
-use Src\TimeTracker\Domain\ValueObjects\TaskId;
 use Src\TimeTracker\Domain\ValueObjects\TaskIsOpen;
 
 final class GetOpenTaskUseCase
@@ -22,7 +21,7 @@ final class GetOpenTaskUseCase
     {
         $isOpen  = new TaskIsOpen(true);
 
-        $task = $this->repository->findByCriteria($isOpen);
+        $task = $this->repository->findByCriteria('isOpen', $isOpen);
 
         return $task;
     }

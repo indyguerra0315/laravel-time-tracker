@@ -24,7 +24,9 @@ class CreateTaskController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $task = (new TaskResource($this->infrastructureCreateTaskController->__invoke($request)))->resolve();
+        $data = $request->only(['id', 'name', 'startTime']);
+
+        $task = (new TaskResource($this->infrastructureCreateTaskController->__invoke($data)))->resolve();
 
         return redirect('/tasks/'. $task['id']);
     }

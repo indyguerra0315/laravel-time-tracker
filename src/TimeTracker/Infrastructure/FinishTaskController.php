@@ -18,15 +18,17 @@ final class FinishTaskController
         $this->repository = $repository;
     }
 
-    public function __invoke($id, Request $request)
+    public function __invoke($data)
     {
-        $taskId       = $id;
-        $taskEndTime  = $request->input('endTime');
+        $taskId       = !empty($data['id']) ? $data['id'] : null;
+        $taskName     = !empty($data['name']) ? $data['name'] : null;
+        $taskEndTime  = $data['endTime'];
 
         $finishTaskUseCase = new FinishTaskUseCase($this->repository);
         $finishTaskUseCase->__invoke(
+            $taskEndTime,
             $taskId,
-            $taskEndTime
+            $taskName
         );
     }
 }
